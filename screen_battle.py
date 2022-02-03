@@ -28,27 +28,29 @@ class Screen_Battle (Frame):
         self.label1 = Label(self, font = "Helvetica 12 bold")
         self.label1.grid(column = 1, row = 0)
         self.label2 = Label(self, font = "Helvetica 12 bold")
-        self.label2.grid(column = 1, row = 1)
+        self.label2.grid(column = 1)
         self.label3 = Label(self, font = "Helvetica 12 bold")
-        self.label3.grid(column = 1, row = 2)
+        self.label3.grid(column = 1)
+        self.label4 = Label(self, font = "Helvetica 12 bold", fg = "orange")
+        self.label4.grid(column = 1)
 
-        Label(self,text = "You", font = "Comic 12 bold", fg = "blue").grid(column = 0, row = 3)
-        Label(self, text = "Computer", font = "Comic 12 bold", fg = "red").grid(column = 1, row = 3)
+        Label(self,text = "You", font = "Comic 12 bold", fg = "blue").grid(column = 0, row = 4)
+        Label(self, text = "Computer", font = "Comic 12 bold", fg = "red").grid(column = 1, row = 4)
 
         big_player_img = PhotoImage(file="images/" + self.player1.large_image)
         player_img = Label(self,image = big_player_img)
         player_img.photo = big_player_img
-        player_img.grid(row = 4, column = 0)
+        player_img.grid(row = 5, column = 0)
 
         big_comp_img = PhotoImage(file="images/" + self.player2.large_image)
         comp_img = Label(self,image = big_comp_img)
         comp_img.photo = big_comp_img
-        comp_img.grid(row = 4, column = 1)
+        comp_img.grid(row = 5, column = 1)
 
         self.hitpoints_label1 = Label(self, text=f"{self.player1.hit_points}/{self.player1_max_hp}", font = "12")
         self.hitpoints_label1.grid()
         self.hitpoints_label2 = Label(self, text=f"{self.player2.hit_points}/{self.player2_max_hp}", font = "12")
-        self.hitpoints_label2.grid(column=1, row=5)
+        self.hitpoints_label2.grid(column=1, row=6)
         
     def attack_clicked(self):
         ''' This method is called when the user presses the "Attack" button.
@@ -77,10 +79,12 @@ class Screen_Battle (Frame):
             self.button.destroy()
             if self.player1.hit_points <= 0:
                 self.label3["text"] = self.player1.get_death_message()
+                self.label4["text"] = self.player2.name
             else:
                 self.label3["text"] = self.player2.get_death_message()
+                self.label4["text"] = f"{self.player1.name} is victorious!"
             
-            Button(self, text = "Exit", font = "Times 14 bold", fg = "brown", bg = "yellow", command = self.exit_clicked).grid(column = 1, row = 6, sticky = N)
+            Button(self, text = "Exit", font = "Times 15 bold", fg = "brown", bg = "yellow", command = self.exit_clicked).grid(column = 1, row = 7, sticky = E)
                                             
     def exit_clicked(self):
         ''' This method is called when the Exit button is clicked. 
