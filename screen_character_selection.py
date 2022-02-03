@@ -1,17 +1,28 @@
-import tkinter
+from tkinter import *
+from characters import *
 
-class Screen_CharacterSelection (tkinter.Frame):
+class Screen_CharacterSelection (Frame):
     def __init__ (self, master, roster, callback_on_selected):
         super().__init__(master)
-       # Save the CharacterRoster  
+       # Save the CharacterRoster
         self.roster = roster
         # Save the method reference to which we return control after the player hits "Character Selected"
         self.callback_on_selected = callback_on_selected
 
         self.grid()
+        # self.troll = self.roster.character_list[0]
+        # self.elf = self.roster.character_list[1]
+        # self.dwarf = self.roster.character_list[2]
+        # self.human = self.roster.character_list[3]
         self.create_widgets()
+
+        # self.image_dwarf = PhotoImage(file="images/dwarf.jpg")
+        # self.image_elf = PhotoImage(file="images/elf.jpg")
+        # self.image_human = PhotoImage(file="images/human.jpg")
+        # self.image_troll = PhotoImage(file="images/troll.jpg")
         
     def create_widgets (self):
+
         '''
         This method creates all of the widgets character selector page.
         The information about each character should be derived from self.roster, 
@@ -40,14 +51,33 @@ class Screen_CharacterSelection (tkinter.Frame):
 
             w.grid (ADD PARAMETERS HERE)
         '''
-        self.character_index = tkinter.StringVar()
+
+        self.character_index = StringVar()
         self.character_index.set(None)
+
+        Label(self, text="Hit Points", font = "13").grid(row=1, column=3, sticky=N)
+        Label(self, text="Dexterity", font = "13").grid(row=1, column=4, sticky=N)
+        Label(self, text="Strength", font = "13").grid(row=1, column=5, sticky=N)
+
+        for i in range(len(self.roster.character_list)):
+            fighter = self.roster.character_list[i]
+
+            #radiob = Radiobutton(self, text = fighter.name, font = "12")
+            #radiob.grid(column = 0,row = i+1)
+            Radiobutton(self, text=fighter.name, font=('Helvetica', 12), variable = self.character_index, value = i).grid(column=0, row=i+1)
+
+            imageSmall = PhotoImage(file="images/" + fighter.small_image)
+            fighter_img = Label(self,image = imageSmall)
+            fighter_img.photo = imageSmall
+            fighter_img.grid(column = 1, row = i+1)
+
+            Label(self, text = fighter.hit_points, font = "13").grid(column = 3, row = i+1)
+            Label(self, text = fighter.dexterity, font = "13").grid(column = 4, row = i+1)
+            Label(self, text = fighter.strength, font = "13").grid(column = 5, row = i+1)
+
+        Button(self, text = "Select Character!", bg = "red", fg = "black", font = "15", command = self.selected_clicked).grid(column = 4, sticky = E)
         
-        #
-        # TO DO
-        #
-       
- 
+
     def selected_clicked(self):
         ''' This method is to be called when the "Character Selected!" button is clicked. 
             Notice that it passes self.character_index back to the callback method. '''         
