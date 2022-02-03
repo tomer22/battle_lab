@@ -76,7 +76,7 @@ class Screen_CharacterSelection (Frame):
             Label(self, text = fighter.strength, font = "13").grid(column = 5, row = i+1)
 
         Button(self, text = "Select Character!", bg = "red", fg = "black", font = "15", command = self.selected_clicked).grid(column = 4, sticky = E)
-        
+         
 
     def selected_clicked(self):
         ''' This method is to be called when the "Character Selected!" button is clicked. 

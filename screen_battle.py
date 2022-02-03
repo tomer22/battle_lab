@@ -51,4 +51,4 @@ class Screen_Battle (tkinter.Frame):
             
             
             
-            
+             

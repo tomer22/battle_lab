@@ -46,4 +46,3 @@ def main():
         print(player.get_death_message())
 
 main()
-    

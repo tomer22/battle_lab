@@ -27,7 +27,7 @@ class Character (object):
         self.dexterity = dexterity
         self.small_image = small_image
         self.large_image = large_image
-        
+         
     def attack (self, enemy):
         ''' 
         In this method, self attempts to attack the enemy (another Character object) .  

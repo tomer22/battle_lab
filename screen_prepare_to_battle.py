@@ -40,7 +40,7 @@ class Screen_PrepareToBattle (Frame):
         Label(self, text = f"{self.player2.hit_points} HP", font = "Calibri 15").grid(column = 1, row = 2)
         Label(self, text = f"{self.player2.dexterity} Dexterity", font = "Calibri 15").grid(column = 1, row = 3)
         Label(self, text =f"{self.player2.strength} Strength", font = "Calibri 15").grid(column = 1, row = 4)
-
+ 
 
         Button(self, text = "Commence Battle", font = "Times 14 bold", fg = "aqua", bg = "purple", command = self.commence_battle_clicked).grid(column = 1, sticky = E)
  
