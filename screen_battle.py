@@ -1,6 +1,6 @@
-import tkinter
+from tkinter import *
 
-class Screen_Battle (tkinter.Frame):
+class Screen_Battle (Frame):
     def __init__ (self, master, player1, player2, callback_on_exit):
         super().__init__(master)
 
@@ -22,9 +22,33 @@ class Screen_Battle (tkinter.Frame):
         '''
         This method creates all of the (initial) widgets for the battle page.
         '''
-        #
-        # TO DO
-        #
+        self.button = Button(self, text = "Attack", font = "Times 14 bold", fg = "red", bg = "black", command = self.attack_clicked)
+        self.button.grid(column = 0, row = 0, sticky = N)
+
+        self.label1 = Label(self, font = "Helvetica 12 bold")
+        self.label1.grid(column = 1, row = 0)
+        self.label2 = Label(self, font = "Helvetica 12 bold")
+        self.label2.grid(column = 1, row = 1)
+        self.label3 = Label(self, font = "Helvetica 12 bold")
+        self.label3.grid(column = 1, row = 2)
+
+        Label(self,text = "You", font = "Comic 12 bold", fg = "blue").grid(column = 0, row = 3)
+        Label(self, text = "Computer", font = "Comic 12 bold", fg = "red").grid(column = 1, row = 3)
+
+        big_player_img = PhotoImage(file="images/" + self.player1.large_image)
+        player_img = Label(self,image = big_player_img)
+        player_img.photo = big_player_img
+        player_img.grid(row = 4, column = 0)
+
+        big_comp_img = PhotoImage(file="images/" + self.player2.large_image)
+        comp_img = Label(self,image = big_comp_img)
+        comp_img.photo = big_comp_img
+        comp_img.grid(row = 4, column = 1)
+
+        self.hitpoints_label1 = Label(self, text=f"{self.player1.hit_points}/{self.player1_max_hp}", font = "12")
+        self.hitpoints_label1.grid()
+        self.hitpoints_label2 = Label(self, text=f"{self.player2.hit_points}/{self.player2_max_hp}", font = "12")
+        self.hitpoints_label2.grid(column=1, row=5)
         
     def attack_clicked(self):
         ''' This method is called when the user presses the "Attack" button.
@@ -39,9 +63,24 @@ class Screen_Battle (tkinter.Frame):
     
                 self.button.destroy()   
         '''        
-        #
-        # TO DO
-        #
+        
+        self.label1["text"] = self.player1.attack(self.player2)
+
+        if self.player2.hit_points > 0:
+            self.label2["text"] = self.player2.attack(self.player1)
+        else:
+            self.label2["text"] = ""
+        self.hitpoints_label1["text"] = f"{self.player1.hit_points}/{self.player1_max_hp}"
+        self.hitpoints_label2["text"] = f"{self.player2.hit_points}/{self.player2_max_hp}"
+
+        if self.player1.hit_points <= 0 or self.player2.hit_points <= 0:
+            self.button.destroy()
+            if self.player1.hit_points <= 0:
+                self.label3["text"] = self.player1.get_death_message()
+            else:
+                self.label3["text"] = self.player2.get_death_message()
+            
+            Button(self, text = "Exit", font = "Times 14 bold", fg = "brown", bg = "yellow", command = self.exit_clicked).grid(column = 1, row = 6, sticky = N)
                                             
     def exit_clicked(self):
         ''' This method is called when the Exit button is clicked. 
