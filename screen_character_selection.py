@@ -10,16 +10,9 @@ class Screen_CharacterSelection (Frame):
         self.callback_on_selected = callback_on_selected
 
         self.grid()
-        # self.troll = self.roster.character_list[0]
-        # self.elf = self.roster.character_list[1]
-        # self.dwarf = self.roster.character_list[2]
-        # self.human = self.roster.character_list[3]
+
         self.create_widgets()
 
-        # self.image_dwarf = PhotoImage(file="images/dwarf.jpg")
-        # self.image_elf = PhotoImage(file="images/elf.jpg")
-        # self.image_human = PhotoImage(file="images/human.jpg")
-        # self.image_troll = PhotoImage(file="images/troll.jpg")
         
     def create_widgets (self):
 
@@ -62,8 +55,6 @@ class Screen_CharacterSelection (Frame):
         for i in range(len(self.roster.character_list)):
             fighter = self.roster.character_list[i]
 
-            #radiob = Radiobutton(self, text = fighter.name, font = "12")
-            #radiob.grid(column = 0,row = i+1)
             Radiobutton(self, text=fighter.name, font=('Helvetica', 12), variable = self.character_index, value = i).grid(column=0, row=i+1)
 
             imageSmall = PhotoImage(file="images/" + fighter.small_image)
